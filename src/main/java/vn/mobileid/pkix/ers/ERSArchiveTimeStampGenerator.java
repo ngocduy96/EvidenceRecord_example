@@ -116,7 +116,8 @@ public class ERSArchiveTimeStampGenerator {
         }
 
         TSTInfo tstInfo = TSTInfo.getInstance(tspResponse.getTimeStampToken().getTimeStampInfo().toASN1Structure());
-
+        System.out.println("tstInfo: " + tstInfo.getMessageImprint().getHashAlgorithm());
+        System.out.println("digCalc: " + digCalc.getAlgorithmIdentifier());
         if (!tstInfo.getMessageImprint().getHashAlgorithm().equals(digCalc.getAlgorithmIdentifier())) {
             throw new ERSException("time stamp imprint for wrong algorithm");
         }

@@ -1,53 +1,56 @@
 package vn.mobileid.core;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+import org.bouncycastle.asn1.tsp.TimeStampReq;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
-import org.bouncycastle.tsp.TSPAlgorithms;
+import org.bouncycastle.tsp.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class TSAUtils {
 
-    private static final String TSA_URL = "http://ca.gov.vn/tsa"; // URL TSA thực tế
+    private static final String TSA_URL = "http://ca.gov.vn/tsa";
 
-    public static byte[] getTimeStampToken(byte[] dataToHash) {
+    public static TimeStampResponse getTimeStampResponse(byte[] dataToHash) {
         try {
-            // 1. Băm dữ liệu đầu vào bằng SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(dataToHash);
 
             AlgorithmIdentifier algorithmIdentifier = new AlgorithmIdentifier(
                     new ASN1ObjectIdentifier(TSPAlgorithms.SHA256.getId()));
-
-// Tạo MessageImprint với AlgorithmIdentifier
             MessageImprint messageImprint = new MessageImprint(algorithmIdentifier, hash);
-
-            TimeStampReq timeStampReq = new TimeStampReq(
-                    messageImprint, null, null, null, null);
-
-            // 3. Gửi TimeStampReq tới TSA
+            // 4. Tạo TimeStampRequestGenerator
+            TimeStampRequestGenerator tspReqGen = new TimeStampRequestGenerator();
+            tspReqGen.setCertReq(true);
+            TimeStampRequest timeStampReq = tspReqGen.generate(
+                    new ASN1ObjectIdentifier(TSPAlgorithms.SHA256.getId()), hash);
             byte[] requestBytes = timeStampReq.getEncoded();
             byte[] responseBytes = sendRequestToTSA(requestBytes);
 
-            // 4. Xử lý TimeStampResp
-            TimeStampResp timeStampResp = TimeStampResp.getInstance(responseBytes);
-
-            // Kiểm tra trạng thái phản hồi và trích xuất token
-            if (timeStampResp.getTimeStampToken() != null) {
+            TimeStampResponse timeStampResponse = new TimeStampResponse(responseBytes);
+            if (timeStampResponse.getTimeStampToken() != null) {
                 System.out.println("TimeStampToken nhận thành công từ TSA.");
-                return timeStampResp.getTimeStampToken().getEncoded();
+                return timeStampResponse;
             } else {
                 System.err.println("Phản hồi từ TSA không có TimeStampToken.");
                 return null;
             }
 
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("Lỗi trong quá trình băm dữ liệu: " + e.getMessage());
+        } catch (TSPException e) {
+            System.err.println("Lỗi trong quá trình xử lý TimeStampResponse: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Lỗi trong việc gửi yêu cầu hoặc nhận phản hồi từ TSA: " + e.getMessage());
         } catch (Exception e) {
+            System.err.println("Đã xảy ra lỗi: " + e.getMessage());
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     // Gửi TimeStampReq đến TSA và nhận TimeStampResp

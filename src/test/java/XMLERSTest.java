@@ -11,6 +11,7 @@ import eu.europa.esig.dss.validation.CommonCertificateVerifier;
 import eu.europa.esig.dss.xades.XAdESSignatureParameters;
 import eu.europa.esig.dss.xades.signature.XAdESService;
 import org.apache.commons.codec.binary.Base64;
+import org.bouncycastle.tsp.TimeStampResponse;
 import vn.mobileid.core.MerkleTree;
 import vn.mobileid.core.TSAUtils;
 import vn.mobileid.pkix.xmlers.XMLEvidenceRecord;
@@ -55,8 +56,7 @@ public class XMLERSTest {
     public static void main(String[] args) {
         try {
             List<String> inputFilePaths = List.of(
-                    "src/test/java/files/Test.txt",
-                    "src/test/java/files/Test1.txt");
+                    "src/test/java/files/Test.txt");
 
             // Bước 1: Băm từng file
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -76,7 +76,8 @@ public class XMLERSTest {
             XMLEvidenceRecord xmlEvidenceRecord = new XMLEvidenceRecord("1.0");
 
             // Bước 3: lấy roothash từ cây băm gửi lên TSA Lấy timestamp
-            byte[] timeStampToken = TSAUtils.getTimeStampToken(rootHash.getBytes());
+            TimeStampResponse timeStampResponse = TSAUtils.getTimeStampResponse(rootHash.getBytes());
+            byte[] timeStampToken = timeStampResponse.getTimeStampToken().getEncoded();
             String timeStampTokenBase64 = Base64.encodeBase64String(timeStampToken);
             System.out.println("Timestamp token: " + timeStampTokenBase64);
 
