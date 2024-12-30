@@ -3,16 +3,15 @@ package vn.mobileid.pkix.ers;
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.cms.ContentInfo;
 
-import vn.mobileid.core.ArchiveTimeStamp;
-import vn.mobileid.core.ArchiveTimeStampSequence;
-import vn.mobileid.core.PartialHashtree;
-import vn.mobileid.core.TSTInfo;
+//import org.bouncycastle.tsp.TimeStampRequest;
+//import org.bouncycastle.tsp.TimeStampResponse;
+import org.bouncycastle.tsp.TimeStampRequest;
+import org.bouncycastle.tsp.TimeStampResponse;
+import vn.mobileid.core.*;
 
 import org.bouncycastle.operator.DigestCalculator;
 import org.bouncycastle.tsp.TSPException;
-import org.bouncycastle.tsp.TimeStampRequest;
 import org.bouncycastle.tsp.TimeStampRequestGenerator;
-import org.bouncycastle.tsp.TimeStampResponse;
 import org.bouncycastle.util.Arrays;
 
 import java.io.IOException;
