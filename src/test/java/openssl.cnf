@@ -1,0 +1,4 @@
+[ v3_ts_cert ]
+keyUsage = critical, digitalSignature
+extendedKeyUsage = critical, timeStamping
+
