@@ -164,13 +164,12 @@ public class XMLEvidenceRecord {
 
 
     // Chuyển Document thành XML string
-    public String toXMLString() throws TransformerException {
+    public void toXMLString() throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
         StringWriter writer = new StringWriter();
         transformer.transform(new DOMSource(this.document), new StreamResult(writer));
-        return writer.toString();
     }
 }

@@ -13,25 +13,17 @@ import java.security.NoSuchAlgorithmException;
 
 public class TSAUtils {
 
-    private static final String TSA_URL = "http://ca.gov.vn/tsa";
+//        private static final String TSA_URL = "http://ca.gov.vn/tsa";
+    private static final String TSA_URL = "https://freetsa.org/tsr";
+//    private static final String TSA_URL = "http://timestamp.digicert.com";
 
     public static TimeStampResponse getTimeStampResponse(byte[] dataToHash) {
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(dataToHash);
 
-            AlgorithmIdentifier algorithmIdentifier = new AlgorithmIdentifier(
-                    new ASN1ObjectIdentifier(TSPAlgorithms.SHA256.getId()));
-            MessageImprint messageImprint = new MessageImprint(algorithmIdentifier, hash);
-            // 4. Tạo TimeStampRequestGenerator
-            TimeStampRequestGenerator tspReqGen = new TimeStampRequestGenerator();
-            tspReqGen.setCertReq(true);
-            TimeStampRequest timeStampReq = tspReqGen.generate(
-                    new ASN1ObjectIdentifier(TSPAlgorithms.SHA256.getId()), hash);
-            byte[] requestBytes = timeStampReq.getEncoded();
-            byte[] responseBytes = sendRequestToTSA(requestBytes);
+            byte[] responseBytes = sendRequestToTSA(dataToHash);
 
             TimeStampResponse timeStampResponse = new TimeStampResponse(responseBytes);
+
             if (timeStampResponse.getTimeStampToken() != null) {
                 System.out.println("TimeStampToken nhận thành công từ TSA.");
                 return timeStampResponse;
@@ -39,9 +31,6 @@ public class TSAUtils {
                 System.err.println("Phản hồi từ TSA không có TimeStampToken.");
                 return null;
             }
-
-        } catch (NoSuchAlgorithmException e) {
-            System.err.println("Lỗi trong quá trình băm dữ liệu: " + e.getMessage());
         } catch (TSPException e) {
             System.err.println("Lỗi trong quá trình xử lý TimeStampResponse: " + e.getMessage());
         } catch (IOException e) {
@@ -50,6 +39,7 @@ public class TSAUtils {
             System.err.println("Đã xảy ra lỗi: " + e.getMessage());
             e.printStackTrace();
         }
+
         return null;
     }
 
@@ -79,4 +69,5 @@ public class TSAUtils {
             return buffer.toByteArray();
         }
     }
+
 }

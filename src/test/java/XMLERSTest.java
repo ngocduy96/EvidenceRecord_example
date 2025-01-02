@@ -40,7 +40,8 @@ public class XMLERSTest {
         XAdESSignatureParameters parameters = new XAdESSignatureParameters();
         parameters.setDigestAlgorithm(DigestAlgorithm.SHA256);
         parameters.setSignaturePackaging(SignaturePackaging.ENVELOPED);
-        parameters.setSignatureLevel(SignatureLevel.XAdES_BASELINE_B);
+        parameters.setSignatureLevel(SignatureLevel.XAdES_BASELINE_LTA);
+        parameters.setArchiveTimestampParameters(null);
         parameters.setSigningCertificate(privateKeyEntry.getCertificate());
         // Tạo dịch vụ XAdES và lấy dữ liệu để ký
         CommonCertificateVerifier commonCertificateVerifier = new CommonCertificateVerifier();
@@ -86,13 +87,8 @@ public class XMLERSTest {
             xmlEvidenceRecord.addArchiveTimeStampSequence(hashList, timeStampData);
 
             // Bước 5: Xuất ra file XMLERS chuẩn
-            String xmlString = xmlEvidenceRecord.toXMLString();
+            xmlEvidenceRecord.toXMLString();
 
-            // Lưu file kết quả
-//            try (FileWriter writer = new FileWriter(outputXmlPath)) {
-//                writer.write(xmlString);
-//            }
-//            System.out.println("Document signed and XMLERS added successfully.");
 
         } catch (Exception e) {
             e.printStackTrace();
