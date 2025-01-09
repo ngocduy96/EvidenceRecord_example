@@ -1,5 +1,6 @@
 package vn.mobileid.core;
 
+import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.tsp.TimeStampReq;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
@@ -19,7 +20,7 @@ public class TSAUtils {
 
     public static TimeStampResponse getTimeStampResponse(byte[] dataToHash) {
         try {
-
+            System.out.println("Digest value: " + Base64.encodeBase64String(dataToHash));
             byte[] responseBytes = sendRequestToTSA(dataToHash);
 
             TimeStampResponse timeStampResponse = new TimeStampResponse(responseBytes);

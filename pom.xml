@@ -41,6 +41,11 @@
             <version>6.1</version>
         </dependency>
         <dependency>
+            <groupId>eu.europa.ec.joinup.sd-dss</groupId>
+            <artifactId>dss-evidence-record-asn1</artifactId>
+            <version>6.1</version>
+        </dependency>
+        <dependency>
             <groupId>${dss.groupId}</groupId>
             <artifactId>dss-detailed-report-jaxb</artifactId>
             <version>${dss.version}</version>
@@ -154,18 +159,6 @@
             <groupId>${dss.groupId}</groupId>
             <artifactId>dss-crl-parser-stream</artifactId>
             <version>${dss.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-            <version>5.5.13.4</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.itextpdf/kernel -->
-        <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>kernel</artifactId>
-            <version>9.0.0</version>
         </dependency>
 
 
