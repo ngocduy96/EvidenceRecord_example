@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SimpleReport ValidationTime="2025-01-14T08:31:38Z" xmlns="http://dss.esig.europa.eu/validation/simple-report">
+    <ValidationPolicy>
+        <PolicyName>QES AdESQC TL based</PolicyName>
+        <PolicyDescription>Validates electronic signatures and indicates whether they are Advanced electronic Signatures (AdES), AdES supported by a Qualified Certificate (AdES/QC) or a
+		Qualified electronic Signature (QES). All certificates and their related chains supporting the signatures are validated against the EU Member State Trusted Lists (this includes
+		signer's certificate and certificates used to validate certificate validity status services - CRLs, OCSP, and time-stamps).
+	</PolicyDescription>
+    </ValidationPolicy>
+    <DocumentName>output_with_evidence_record-2.pdf</DocumentName>
+    <ValidSignaturesCount>0</ValidSignaturesCount>
+    <SignaturesCount>1</SignaturesCount>
+    <Signature SignatureFormat="PAdES-BASELINE-T" Id="S-39A6E290CD4926A2D3F91C46AF2977E76D7262CD174801C307980DFC7F6C7575">
+        <CertificateChain>
+            <Certificate Id="C-A59E6F5E3A0ADB6093B8D9A64D97C2731A96E46DC260465BDEF52AA8C528A9E6">
+                <QualifiedName>Nguyen Ngoc Duy</QualifiedName>
+            </Certificate>
+        </CertificateChain>
+        <Indication>INDETERMINATE</Indication>
+        <SubIndication>NO_CERTIFICATE_CHAIN_FOUND</SubIndication>
+        <AdESValidationDetails>
+            <Error Key="BBB_XCV_CCCBB_SIG_ANS">The certificate chain for signature is not trusted, it does not contain a trust anchor.</Error>
+        </AdESValidationDetails>
+        <QualificationDetails>
+            <Error Key="QUAL_CERT_TRUSTED_LIST_REACHED_ANS">Unable to build a certificate chain up to a trusted list!</Error>
+            <Warning Key="QUAL_IS_ADES_IND">The signature/seal is an INDETERMINATE AdES digital signature!</Warning>
+        </QualificationDetails>
+        <SigningTime>2025-01-14T08:31:36Z</SigningTime>
+        <BestSignatureTime>2025-01-14T08:31:38Z</BestSignatureTime>
+        <SignedBy>Nguyen Ngoc Duy</SignedBy>
+        <SignatureLevel description="Not applicable">N/A</SignatureLevel>
+        <SignatureScope Id="D-B2F6448CE6B642EE70EEA99FD65CA2EFE9A0A2C85125578BF2DB82865FF3C6F8" name="Partial PDF" scope="PARTIAL">The document ByteRange : [0, 145242, 164188, 853]</SignatureScope>
+        <Timestamps>
+            <Timestamp Id="T-5EE3B29AD079C363357EE09179581F615BB424044237B731F8C3B2FA892E6D7B">
+                <CertificateChain>
+                    <Certificate Id="C-DA00DB89A849FE8B00882707224C6B291BDED54469E1A7532744F96ECAE79D39">
+                        <QualifiedName>Máy chủ cấp dấu thời gian 01</QualifiedName>
+                    </Certificate>
+                    <Certificate Id="C-F7BC89054CEC7F12730D7B8CD3EB7955B163835087E5EB873EDFB584763B3F90">
+                        <QualifiedName>Co quan chung thuc so chuyen dung Chinh phu (RootCA)</QualifiedName>
+                    </Certificate>
+                </CertificateChain>
+                <Indication>INDETERMINATE</Indication>
+                <SubIndication>NO_CERTIFICATE_CHAIN_FOUND</SubIndication>
+                <AdESValidationDetails>
+                    <Error Key="BBB_XCV_CCCBB_TSP_ANS">The certificate chain for time-stamp is not trusted, it does not contain a trust anchor.</Error>
+                </AdESValidationDetails>
+                <QualificationDetails>
+                    <Error Key="QUAL_CERT_TRUSTED_LIST_REACHED_ANS">Unable to build a certificate chain up to a trusted list!</Error>
+                </QualificationDetails>
+                <ProductionTime>2025-01-14T08:13:00Z</ProductionTime>
+                <ProducedBy>Máy chủ cấp dấu thời gian 01</ProducedBy>
+                <TimestampLevel description="Not applicable">N/A</TimestampLevel>
+                <TimestampScope Id="D-038CA2E030A94193CF41F57D80162FF8954ECA251E31EC9A3D64B1CFB1583B67" name="Partial PDF" scope="PARTIAL">The document ByteRange : [0, 165460, 184406, 860]</TimestampScope>
+            </Timestamp>
+            <Timestamp Id="T-7488E3CE0ACFD080BB764990014D0B065D69263AE61AFE0E6A6D73CE2AB664A0">
+                <CertificateChain>
+                    <Certificate Id="C-DA00DB89A849FE8B00882707224C6B291BDED54469E1A7532744F96ECAE79D39">
+                        <QualifiedName>Máy chủ cấp dấu thời gian 01</QualifiedName>
+                    </Certificate>
+                    <Certificate Id="C-F7BC89054CEC7F12730D7B8CD3EB7955B163835087E5EB873EDFB584763B3F90">
+                        <QualifiedName>Co quan chung thuc so chuyen dung Chinh phu (RootCA)</QualifiedName>
+                    </Certificate>
+                </CertificateChain>
+                <Indication>INDETERMINATE</Indication>
+                <SubIndication>NO_CERTIFICATE_CHAIN_FOUND</SubIndication>
+                <AdESValidationDetails>
+                    <Error Key="BBB_XCV_CCCBB_TSP_ANS">The certificate chain for time-stamp is not trusted, it does not contain a trust anchor.</Error>
+                </AdESValidationDetails>
+                <QualificationDetails>
+                    <Error Key="QUAL_CERT_TRUSTED_LIST_REACHED_ANS">Unable to build a certificate chain up to a trusted list!</Error>
+                </QualificationDetails>
+                <ProductionTime>2025-01-14T08:31:37Z</ProductionTime>
+                <ProducedBy>Máy chủ cấp dấu thời gian 01</ProducedBy>
+                <TimestampLevel description="Not applicable">N/A</TimestampLevel>
+                <TimestampScope Id="D-2E90CF802FE2B2BA718C1057B4D2E6542BD5EC1209DC732523821864801D4C0A" name="Full PDF" scope="FULL">The document ByteRange : [0, 193411, 212357, 867]</TimestampScope>
+            </Timestamp>
+        </Timestamps>
+    </Signature>
+</SimpleReport>

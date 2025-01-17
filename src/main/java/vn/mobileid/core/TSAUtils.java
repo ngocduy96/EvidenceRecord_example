@@ -1,21 +1,16 @@
 package vn.mobileid.core;
 
 import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
-import org.bouncycastle.asn1.tsp.TimeStampReq;
-import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.tsp.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class TSAUtils {
 
-//        private static final String TSA_URL = "http://ca.gov.vn/tsa";
-    private static final String TSA_URL = "https://freetsa.org/tsr";
+        private static final String TSA_URL = "http://ca.gov.vn/tsa";
+//    private static final String TSA_URL = "https://freetsa.org/tsr";
 //    private static final String TSA_URL = "http://timestamp.digicert.com";
 
     public static TimeStampResponse getTimeStampResponse(byte[] dataToHash) {
@@ -26,7 +21,12 @@ public class TSAUtils {
             TimeStampResponse timeStampResponse = new TimeStampResponse(responseBytes);
 
             if (timeStampResponse.getTimeStampToken() != null) {
-                System.out.println("TimeStampToken nhận thành công từ TSA.");
+                System.out.println("TimeStampToken nhận thành  công từ TSA.");
+
+                TSTInfo tstInfo = TSTInfo.getInstance(timeStampResponse.getTimeStampToken().getTimeStampInfo().toASN1Structure());
+                try (FileOutputStream fos = new FileOutputStream("src/test/java/files/asn1structure.bin")) {
+                    fos.write(tstInfo.getEncoded());
+                }
                 return timeStampResponse;
             } else {
                 System.err.println("Phản hồi từ TSA không có TimeStampToken.");
