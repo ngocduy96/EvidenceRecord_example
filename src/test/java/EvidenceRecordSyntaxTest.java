@@ -113,7 +113,6 @@ public class EvidenceRecordSyntaxTest {
         // Tạo token chữ ký từ file P12
         Pkcs12SignatureToken signatureToken = new Pkcs12SignatureToken(p12FilePath, new KeyStore.PasswordProtection(p12Password.toCharArray()));
         DSSPrivateKeyEntry privateKeyEntry = signatureToken.getKeys().get(0);
-
         // Tạo tham số cho chữ ký
         XAdESSignatureParameters parameters = new XAdESSignatureParameters();
         parameters.setDigestAlgorithm(DigestAlgorithm.SHA256);
@@ -125,11 +124,33 @@ public class EvidenceRecordSyntaxTest {
         cv.setCheckRevocationForUntrustedChains(true);
         XAdESService xAdESService = new XAdESService(cv);
         ToBeSigned toBeSigned = xAdESService.getDataToSign(xmlDocument, parameters);
-
         // Ký tài liệu
         SignatureValue signatureValue = signatureToken.sign(toBeSigned, parameters.getDigestAlgorithm(), privateKeyEntry);
         return xAdESService.signDocument(xmlDocument, parameters, signatureValue);
     }
+
+    public static DSSDocument timestampXAdESDocument(DSSDocument xmlDocument) throws Exception {
+
+        // Tạo token chữ ký từ file P12
+        Pkcs12SignatureToken signatureToken = new Pkcs12SignatureToken(p12FilePath, new KeyStore.PasswordProtection(p12Password.toCharArray()));
+        DSSPrivateKeyEntry privateKeyEntry = signatureToken.getKeys().get(0);
+        // Tạo tham số cho chữ ký
+        XAdESSignatureParameters parameters = new XAdESSignatureParameters();
+        parameters.setDigestAlgorithm(DigestAlgorithm.SHA256);
+        parameters.setSignaturePackaging(SignaturePackaging.ENVELOPED);
+        parameters.setSignatureLevel(SignatureLevel.XAdES_BASELINE_LTA);
+        parameters.setSigningCertificate(privateKeyEntry.getCertificate());
+
+        CertificateVerifier cv = new CommonCertificateVerifier();
+        cv.setCheckRevocationForUntrustedChains(true);
+        XAdESService xAdESService = new XAdESService(cv);
+        ToBeSigned toBeSigned = xAdESService.getDataToSign(xmlDocument, parameters);
+        // Ký tài liệu
+        SignatureValue signatureValue = signatureToken.sign(toBeSigned, parameters.getDigestAlgorithm(), privateKeyEntry);
+        return xAdESService.signDocument(xmlDocument, parameters, signatureValue);
+    }
+
+
 
     public static void saveEvidenceRecordToFile(EvidenceRecord ev, String outputFilePath) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(outputFilePath)) {

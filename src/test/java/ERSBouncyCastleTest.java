@@ -27,9 +27,9 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
 
-public class ERSEvidenceRecordTest {
+public class ERSBouncyCastleTest {
     public static void main(String[] args) throws IOException {
-        ERSEvidenceRecordTest test = new ERSEvidenceRecordTest();
+        ERSBouncyCastleTest test = new ERSBouncyCastleTest();
         String inputPdfPath = "src/test/java/input.pdf";
         String outputErsPath = "src/test/java/output.ers";
 
