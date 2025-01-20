@@ -24,12 +24,12 @@ import java.io.File;
 import java.io.IOException;
 import java.security.KeyStore;
 
-public class XAdESService {
+public class XAdES {
     private final String p12FilePath;
     private final String p12Password;
     private final String TSA_URL;
 
-    public XAdESService(String p12FilePath, String p12Password, String TSA_URL) {
+    public XAdES(String p12FilePath, String p12Password, String TSA_URL) {
         this.p12FilePath = p12FilePath;
         this.p12Password = p12Password;
         this.TSA_URL = TSA_URL;

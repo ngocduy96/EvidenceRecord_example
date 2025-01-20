@@ -21,18 +21,19 @@ import eu.europa.esig.dss.validation.CertificateVerifier;
 import eu.europa.esig.dss.validation.CommonCertificateVerifier;
 import eu.europa.esig.dss.validation.reports.Reports;
 import vn.mobileid.sources.OnlineSources;
+import eu.europa.esig.dss.pades.signature.PAdESService;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.KeyStore;
 
-public class PAdESService {
+public class PAdES {
 
     private final String p12FilePath;
     private final String p12Password;
     private final String TSA_URL;
 
-    public PAdESService(String p12FilePath, String p12Password, String TSA_URL) {
+    public PAdES(String p12FilePath, String p12Password, String TSA_URL) {
         this.p12FilePath = p12FilePath;
         this.p12Password = p12Password;
         this.TSA_URL = TSA_URL;
@@ -87,7 +88,7 @@ public class PAdESService {
         cv.setCheckRevocationForUntrustedChains(true);
         cv.setAlertOnMissingRevocationData(new ExceptionOnStatusAlert());
 
-        eu.europa.esig.dss.pades.signature.PAdESService padesService = new eu.europa.esig.dss.pades.signature.PAdESService(cv);
+        PAdESService padesService = new PAdESService(cv);
         padesService.setTspSource(OnlineSources.onlineTSPSource());
 
         PAdESTimestampParameters timestampParameters = new PAdESTimestampParameters();
