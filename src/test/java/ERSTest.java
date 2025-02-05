@@ -1,9 +1,11 @@
-import eu.europa.esig.dss.model.*;
-import vn.mobileid.services.pades.PAdES;
-import vn.mobileid.services.xades.XAdES;
+import vn.mobile.id.config.SignerConfig;
+import vn.mobile.id.services.pades.PAdES;
 
 public class ERSTest {
     private static final String inputPdfPath = "src/test/java/files/input.pdf";
+    private static final String inputImagePath = "src/test/java/files/logo.jpg";
+    private static final String inputCMSPath = "src/test/java/files/input.docx";
+    private static final String outputCMSPath = "src/test/java/files/output.docx";
     private static final String outputPdfPath1 = "src/test/java/files/output_with_evidence_record-1.pdf";
     private static final String outputPdfPath2 = "src/test/java/files/timestampedPDF.pdf";
     private static final String outputReportPath = "src/test/java/files/report.xml";
@@ -17,17 +19,12 @@ public class ERSTest {
     private static final String TSA_URL = "http://ca.gov.vn/tsa";
 
     public static void main(String[] args) throws Exception {
-        XAdES xadesService = new XAdES(p12FilePath, p12Password, TSA_URL);
-        DSSDocument xAdESDocument = xadesService.signXAdESDocument(new FileDocument(inputXMLpath));
-        xAdESDocument.save(outputXMLpath);
+        SignerConfig config = new SignerConfig(p12FilePath, p12Password, TSA_URL);
 
-        PAdES padesService = new PAdES(p12FilePath, p12Password, TSA_URL);
-        DSSDocument pAdESDocument = padesService.signPAdESDocument(new FileDocument(inputPdfPath));
-        pAdESDocument.save(outputPdfPath1);
-
-        DSSDocument pdfTimestampedDocument = padesService.pdfTimestamping(pAdESDocument);
-        pdfTimestampedDocument.save(outputPdfPath2);
-
+        PAdES padesService = new PAdES(config);
+        padesService.signDocument(inputPdfPath);
+        padesService.timestampDocument(inputPdfPath);
+        padesService.extendLTA(inputPdfPath);
     }
 
 

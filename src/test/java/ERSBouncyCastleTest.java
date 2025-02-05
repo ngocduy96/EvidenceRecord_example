@@ -18,9 +18,9 @@ import java.security.*;
 import java.util.ArrayList;
 
 import org.bouncycastle.util.Store;
-import vn.mobileid.pkix.ers.*;
+import vn.mobile.id.ers.*;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import vn.mobileid.core.EvidenceRecord;
+import vn.mobile.id.core.EvidenceRecord;
 
 import java.math.BigInteger;
 import java.security.cert.X509Certificate;
